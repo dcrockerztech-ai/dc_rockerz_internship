@@ -2,15 +2,15 @@ import os
 import csv
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from logic import recommend
+from Backend.logic import recommend   # ✅ FIXED import for Render
 
 # Flask setup with templates folder
 TEMPLATE_FOLDER = os.path.join(os.path.dirname(__file__), "templates")
 app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
 CORS(app)
 
-# Dataset path (Backend/.. → Data/internships.csv)
-DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "Data", "internships.csv")
+# Dataset path (Backend/.. → data/internships.csv)
+DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "internships.csv")
 
 # Load dataset safely
 INTERN = []
@@ -36,26 +36,21 @@ except Exception as e:
 def home():
     return render_template("index.html")
 
-
 @app.route("/finder")
 def finder():
     return render_template("finder.html")
-
 
 @app.route("/finder.html")   # extra route so both /finder and /finder.html work
 def finder_html():
     return render_template("finder.html")
 
-
 @app.route("/health")
 def health():
     return jsonify({"status": "ok", "count": len(INTERN)})
 
-
 @app.route("/sample")
 def sample():
     return jsonify(INTERN[:5])
-
 
 @app.route("/recommend", methods=["POST"])
 def recommend_api():
