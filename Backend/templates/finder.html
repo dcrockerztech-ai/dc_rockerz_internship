@@ -88,6 +88,7 @@
 
 <script>
 (function(){
+  // Always use current site domain as API base (Render or localhost)
   const API_BASE = window.location.origin;
   const ENDPOINT = API_BASE + '/recommend';
 
@@ -103,8 +104,13 @@
     chip.classList.toggle('selected');
   });
 
-  function getSelectedSkills(){ return Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.value); }
-  function getSelectedSector(){ const r = document.querySelector('input[name="sector"]:checked'); return r ? r.value : ''; }
+  function getSelectedSkills(){
+    return Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.value);
+  }
+  function getSelectedSector(){
+    const r = document.querySelector('input[name="sector"]:checked');
+    return r ? r.value : '';
+  }
   function showLoading(on){ loadingEl.style.display = on ? 'block' : 'none'; }
   function showError(msg){ errorEl.style.display = msg ? 'block' : 'none'; errorEl.textContent = msg || ''; }
 
