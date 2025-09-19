@@ -5,6 +5,10 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from logic import recommend
 
+# minor change to trigger Render build
+
+
+
 # Flask setup with templates folder
 TEMPLATE_FOLDER = os.path.join(os.path.dirname(__file__), "templates")
 app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
