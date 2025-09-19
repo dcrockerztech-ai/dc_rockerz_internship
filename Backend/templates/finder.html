@@ -80,7 +80,6 @@
       <button type="submit" class="submit">Find My Internships</button>
       <div id="loading" class="loading" style="display:none">Generating recommendations...</div>
       <div id="error" class="error" style="display:none"></div>
-      <div class="hint">Open this page from <strong>http://127.0.0.1:5000/finder.html</strong> (start backend) — do not open via file://</div>
     </form>
   </div>
 
@@ -89,7 +88,6 @@
 
 <script>
 (function(){
-  // Always use current site domain as API base
   const API_BASE = window.location.origin;
   const ENDPOINT = API_BASE + '/recommend';
 
@@ -105,13 +103,8 @@
     chip.classList.toggle('selected');
   });
 
-  function getSelectedSkills(){
-    return Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.value);
-  }
-  function getSelectedSector(){
-    const r = document.querySelector('input[name="sector"]:checked');
-    return r ? r.value : '';
-  }
+  function getSelectedSkills(){ return Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.value); }
+  function getSelectedSector(){ const r = document.querySelector('input[name="sector"]:checked'); return r ? r.value : ''; }
   function showLoading(on){ loadingEl.style.display = on ? 'block' : 'none'; }
   function showError(msg){ errorEl.style.display = msg ? 'block' : 'none'; errorEl.textContent = msg || ''; }
 
@@ -176,9 +169,7 @@
         body: JSON.stringify(payload)
       }, 15000);
 
-      if (!res.ok) {
-        throw new Error('Server error: ' + res.status);
-      }
+      if (!res.ok) throw new Error('Server error: ' + res.status);
 
       const data = await res.json().catch(()=>null);
       renderResults(Array.isArray(data) ? data : (data && data.results ? data.results : []));
@@ -190,7 +181,5 @@
   });
 })();
 </script>
-
-
 </body>
 </html>
