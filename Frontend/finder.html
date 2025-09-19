@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Internship Finder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+  :root{--primary:#4CAF50;--bg:#f0f0f0;--card:#fff;--muted:#777}
+  body{font-family:Inter,system-ui,Arial;margin:0;background:var(--bg);color:#222}
+  .wrap{max-width:720px;margin:24px auto;padding:18px}
+  header{text-align:center;margin-bottom:14px}
+  h1{color:var(--primary);margin:0 0 6px;font-weight:600}
+  p.sub{margin:0;color:var(--muted)}
+  .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+  .field{margin-bottom:14px}
+  label{display:block;font-weight:600;margin-bottom:6px}
+  select,input[type="text"]{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:#eee;padding:8px 12px;border-radius:20px;cursor:pointer;user-select:none}
+  .chip.selected{background:var(--primary);color:#fff;transform:scale(1.03)}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .submit{width:100%;padding:12px;border:0;background:var(--primary);color:#fff;border-radius:10px;font-weight:600;cursor:pointer}
+  .loading{margin-top:12px;font-style:italic;color:var(--muted)}
+  #results{margin-top:18px}
+  .intern{background:var(--card);padding:14px;border-radius:10px;margin-bottom:12px;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+  .meta{font-size:.9rem;color:var(--muted);margin-top:8px}
+  .skill-tag{display:inline-block;background:#f1f5f1;color:#2f6f2f;padding:4px 8px;border-radius:999px;margin-right:6px;margin-top:8px;font-size:.85rem}
+  .error{color:#b00020;font-weight:600;margin-top:12px}
+  .hint{font-size:.9rem;color:#666;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Internship Finder</h1>
+    <p class="sub">Find your best-fit internship — powered by DC ROCKERZ engine.</p>
+  </header>
+
+  <div class="card" id="formCard">
+    <form id="recommendation-form">
+      <div class="field">
+        <label for="education">Your Highest Education</label>
+        <select id="education" name="education">
+          <option value="Class 10th">Class 10th</option>
+          <option value="Class 12th">Class 12th</option>
+          <option value="Graduate" selected>Graduate</option>
+          <option value="Post-Graduate">Post-Graduate</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Skills You Know (choose any)</label>
+        <div class="chips" id="skillsChips">
+          <div class="chip" data-value="communication">Communication</div>
+          <div class="chip" data-value="data collection">Data Collection</div>
+          <div class="chip" data-value="problem solving">Problem Solving</div>
+          <div class="chip" data-value="basic it">Basic IT</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Sector of Interest</label>
+        <div class="row">
+          <label><input type="radio" name="sector" value="IT" checked> 💻 IT</label>
+          <label><input type="radio" name="sector" value="Education"> 📚 Education</label>
+          <label><input type="radio" name="sector" value="Finance"> 💰 Finance</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="location">Preferred Location (category)</label>
+        <select id="location" name="location">
+          <option value="Urban">Urban</option>
+          <option value="Semi-Urban">Semi-Urban</option>
+          <option value="Rural">Rural</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit">Find My Internships</button>
+      <div id="loading" class="loading" style="display:none">Generating recommendations...</div>
+      <div id="error" class="error" style="display:none"></div>
+      <div class="hint">Open this page from <strong>http://127.0.0.1:5000/finder.html</strong> (start backend) — do not open via file://</div>
+    </form>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<script>
+(function(){
+  const API_BASE = 'http://127.0.0.1:5000';
+  const ENDPOINT = API_BASE + '/recommend';
+
+  const form = document.getElementById('recommendation-form');
+  const loadingEl = document.getElementById('loading');
+  const errorEl = document.getElementById('error');
+  const resultsEl = document.getElementById('results');
+  const chips = document.getElementById('skillsChips');
+
+  // chip selection handler (no inputs required)
+  chips.addEventListener('click', (ev) => {
+    const chip = ev.target.closest('.chip');
+    if (!chip) return;
+    chip.classList.toggle('selected');
+  });
+
+  function getSelectedSkills(){
+    return Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.value);
+  }
+
+  function getSelectedSector(){
+    const r = document.querySelector('input[name="sector"]:checked');
+    return r ? r.value : '';
+  }
+
+  function showLoading(on){
+    loadingEl.style.display = on ? 'block' : 'none';
+  }
+  function showError(msg){
+    errorEl.style.display = msg ? 'block' : 'none';
+    errorEl.textContent = msg || '';
+  }
+
+  // render results
+  function renderResults(payload){
+    resultsEl.innerHTML = '';
+    if (!payload || (Array.isArray(payload) && payload.length === 0)) {
+      resultsEl.innerHTML = '<div class="card"><p class="hint">No internships found — try broader skills or education level.</p></div>';
+      return;
+    }
+
+    const list = Array.isArray(payload) ? payload : (payload.results || []);
+    if (!list || list.length === 0){
+      resultsEl.innerHTML = '<div class="card"><p class="hint">No internships found — try different filters.</p></div>';
+      return;
+    }
+
+    list.forEach(job => {
+      const div = document.createElement('div');
+      div.className = 'intern';
+      const title = job.title || job.name || 'Untitled';
+      const company = job.company || job.company_name || '';
+      const skills = job.skills || job.required_skills || '';
+      const locs = job.expanded_locations || job.eligible_locations || job.location || '';
+      const stipend = job.stipend ? (' | ₹' + job.stipend) : '';
+
+      div.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><strong>${escapeHtml(title)}</strong><div class="meta">${escapeHtml(company)}${stipend}</div></div>
+          <div style="font-size:1.3rem">${job.tags || ''}</div>
+        </div>
+        <div class="meta">Locations: ${escapeHtml(locs)}</div>
+        <div class="skill-tags">${(skills || '').toString().split(',').filter(Boolean).map(s => '<span class="skill-tag">'+escapeHtml(s.trim())+'</span>').join('')}</div>
+      `;
+      resultsEl.appendChild(div);
+    });
+  }
+
+  function escapeHtml(s){
+    return String(s||'').replace(/&/g,'&amp;')
+                        .replace(/</g,'&lt;')
+                        .replace(/>/g,'&gt;');
+  }
+
+  async function fetchWithTimeout(url, options = {}, timeout = 15000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+      const res = await fetch(url, Object.assign({}, options, { signal: controller.signal }));
+      clearTimeout(id);
+      return res;
+    } catch (err) {
+      clearTimeout(id);
+      throw err;
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showError('');
+    resultsEl.innerHTML = '';
+    showLoading(true);
+
+    const payload = {
+      education: document.getElementById('education').value || '',
+      skills: getSelectedSkills(),
+      interests: [],
+      sector: getSelectedSector(),
+      location: document.getElementById('location').value || ''
+    };
+
+    console.log('Payload →', payload, 'POST ->', ENDPOINT);
+
+    try {
+      const res = await fetchWithTimeout(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }, 15000);
+
+      if (!res.ok) {
+        const txt = await res.text().catch(()=>'<no-body>');
+        console.error('Non-OK response', res.status, txt);
+        throw new Error('Server error: ' + res.status + ' — see console.');
+      }
+
+      const data = await res.json().catch(()=>null);
+      console.log('Response ->', data);
+
+      const resultList = Array.isArray(data) ? data : (data && data.results ? data.results : data);
+      renderResults(resultList);
+
+    } catch (err) {
+      console.error('Fetch/Processing error', err);
+      showError(err.message || 'An error occurred. Check console and server logs.');
+    } finally {
+      showLoading(false);
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>

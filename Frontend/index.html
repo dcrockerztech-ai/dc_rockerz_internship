@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM Internship Scheme Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; color: #333; }
+        .header-top { background-color: #f7f7f7; border-bottom: 1px solid #ddd;
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; }
+        .header-main { background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .nav-link { transition: color 0.3s; }
+        .nav-link:hover { color: #1a73e8; }
+        .section-header { color: #1a73e8; font-weight: 700; }
+        .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 20px; }
+        .btn-primary { background-color: #1a73e8; color: white; padding: 10px 20px; border-radius: 8px;
+            font-weight: 500; transition: background-color 0.3s; }
+        .btn-primary:hover { background-color: #155bb5; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; }
+        .modal-content { background: #fff; padding: 24px; border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2); text-align: center; }
+        .close-btn { float: right; cursor: pointer; font-size: 1.5rem; color: #888; }
+        @media (max-width: 768px) { .header-top { flex-direction: column; gap: 8px; } }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Top Bar -->
+    <div class="header-top text-sm">
+        <div class="flex items-center space-x-2">
+            <span>Language:</span>
+            <select class="p-1 rounded-md">
+                <option>English</option>
+                <option>Hindi</option>
+            </select>
+            <span class="cursor-pointer">Screen Reader</span>
+            <span class="ml-4">Text Size:</span>
+            <span class="cursor-pointer">A-</span>
+            <span class="cursor-pointer">A</span>
+            <span class="cursor-pointer">A+</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <!-- FIXED: redirect to Finder -->
+            <a href="finder.html" class="btn-primary">Youth Registration</a>
+            <a href="finder.html" class="btn-primary">Login</a>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="header-main sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="https://placehold.co/80x80/295c5d/fff?text=GOV" alt="Gov Logo" class="w-16 h-16 rounded-full">
+                <img src="https://placehold.co/100x80/1a73e8/fff?text=PM+Internship" alt="Portal Logo" class="w-24 h-16 rounded-lg">
+            </div>
+            <nav class="mt-4 md:mt-0">
+                <ul class="flex space-x-6 text-lg font-medium">
+                    <li><a href="#home" class="nav-link text-blue-600 font-bold">Home</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#eligibility" class="nav-link">Eligibility</a></li>
+                    <li><a href="#opportunities" class="nav-link">Opportunities</a></li>
+                    <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                    <li><a href="#partners" class="nav-link">Partners</a></li>
+                    <!-- NEW -->
+                    <li><a href="finder.html" class="nav-link font-bold text-blue-600">Internship Finder</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="text-center py-12">
+        <h1 class="text-4xl font-bold mb-4">PM Internship Scheme</h1>
+        <p class="text-lg max-w-2xl mx-auto text-gray-600">
+            Welcome to the official portal for the Prime Minister's Internship Scheme. Connecting youth with opportunities across sectors.
+        </p>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="my-12 container mx-auto px-6">
+        <h2 class="text-3xl section-header mb-6">Gallery</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card"><h3 class="font-bold mb-2">Social Media</h3><img src="https://placehold.co/600x400?text=Gallery1"></div>
+            <div class="card"><h3 class="font-bold mb-2">Events</h3><img src="https://placehold.co/600x400?text=Gallery2"></div>
+        </div>
+    </section>
+
+    <!-- Eligibility -->
+    <section id="eligibility" class="my-12 container mx-auto px-6">
+        <h2 class="text-3xl section-header mb-6">Eligibility</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card text-center"><h3 class="font-bold">Age</h3><p>18–25 years</p></div>
+            <div class="card text-center"><h3 class="font-bold">Education</h3><p>Student/Graduate</p></div>
+            <div class="card text-center"><h3 class="font-bold">Citizenship</h3><p>Indian</p></div>
+        </div>
+    </section>
+
+    <!-- Opportunities -->
+    <section id="opportunities" class="my-12 container mx-auto px-6">
+        <h2 class="text-3xl section-header mb-6">Explore Opportunities</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="card text-center">Pharma</div>
+            <div class="card text-center">Retail</div>
+            <div class="card text-center">Telecom</div>
+            <div class="card text-center">Auto</div>
+        </div>
+    </section>
+
+    <!-- Dashboard (Live Stats) -->
+    <section id="dashboard" class="my-12 container mx-auto px-6">
+        <h2 class="text-3xl section-header mb-6">Dashboard</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="card">Total Internships <p id="stat-total" class="text-2xl font-bold">0</p></div>
+            <div class="card">Locations <p id="stat-locations" class="text-2xl font-bold">0</p></div>
+            <div class="card">Skills <p id="stat-skills" class="text-2xl font-bold">0</p></div>
+            <div class="card">Education <p id="stat-education" class="text-2xl font-bold">0</p></div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners" class="my-12 container mx-auto px-6">
+        <h2 class="text-3xl section-header mb-6">Partners</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+            <img src="https://placehold.co/150x80?text=Partner1">
+            <img src="https://placehold.co/150x80?text=Partner2">
+            <img src="https://placehold.co/150x80?text=Partner3">
+        </div>
+    </section>
+
+    <!-- Floating Chatbot -->
+    <div id="chatbotBtn" class="fixed bottom-6 right-6 z-50">
+        <div class="bg-blue-600 text-white rounded-full p-4 shadow-lg cursor-pointer">💬</div>
+    </div>
+    <div id="chatWindow" class="hidden fixed bottom-20 right-6 w-80 bg-white border rounded-lg shadow-lg flex flex-col">
+        <div class="bg-blue-600 text-white px-4 py-2 rounded-t-lg flex justify-between items-center">
+            <span>Internship Assistant</span>
+            <button onclick="toggleChat()" class="text-white">✖</button>
+        </div>
+        <div id="chatMessages" class="p-3 h-64 overflow-y-auto text-sm space-y-2"></div>
+        <div class="p-2 border-t flex">
+            <input id="chatInput" type="text" placeholder="Type a message..." class="flex-1 border rounded px-2 py-1 text-sm"/>
+            <button onclick="sendMessage()" class="ml-2 bg-blue-600 text-white px-3 py-1 rounded">Send</button>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-6 mt-12 text-center">&copy; 2025 DC ROCKERZ</footer>
+
+    <script>
+      // Dashboard stats
+      async function loadStats() {
+        try {
+          const res = await fetch("http://127.0.0.1:5000/stats");
+          const data = await res.json();
+          document.getElementById("stat-total").innerText = data.total_internships;
+          document.getElementById("stat-locations").innerText = data.unique_locations;
+          document.getElementById("stat-skills").innerText = data.unique_skills;
+          document.getElementById("stat-education").innerText = data.unique_education;
+        } catch (err) { console.error("Stats error:", err); }
+      }
+      loadStats();
+
+      // Chatbot
+      const chatWindow = document.getElementById("chatWindow");
+      const chatBtn = document.getElementById("chatbotBtn");
+      const chatMessages = document.getElementById("chatMessages");
+
+      chatBtn.addEventListener("click", toggleChat);
+      function toggleChat() { chatWindow.classList.toggle("hidden"); }
+
+      async function sendMessage() {
+        const input = document.getElementById("chatInput");
+        const message = input.value.trim();
+        if (!message) return;
+
+        chatMessages.innerHTML += `<div class="text-right"><span class="bg-blue-100 px-2 py-1 rounded">${message}</span></div>`;
+        input.value = "";
+
+        const res = await fetch("http://127.0.0.1:5000/chatbot", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: message })
+        });
+        const data = await res.json();
+
+        chatMessages.innerHTML += `<div class="text-left"><span class="bg-gray-200 px-2 py-1 rounded">${data.reply}</span></div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    </script>
+</body>
+</html>

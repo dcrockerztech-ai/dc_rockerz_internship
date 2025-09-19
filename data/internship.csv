@@ -1,0 +1,48 @@
+id,title,company,skills,education,location,tags,description,stipend,expanded_locations
+1,IT Support Intern,TechSpark,"communication,basic it",Class 10th,Urban,IT,Assist IT team in troubleshooting,2000,"Delhi, Mumbai"
+2,Education Assistant,LearnWell,"communication,data collection",Class 10th,Semi-Urban,Education,Help teachers with classroom tasks,1500,"Indore, Nagpur"
+3,Finance Clerk Intern,MoneyMat,"basic it,problem solving",Class 10th,Rural,Finance,Assist with account entries,1800,"Village A, Village B"
+
+4,Web Dev Trainee,CodeHub,"basic it,problem solving",Class 12th,Urban,IT,Support frontend projects,3000,"Bengaluru, Pune"
+5,Tutoring Intern,Shiksha,"communication,problem solving",Class 12th,Semi-Urban,Education,Provide peer-to-peer tutoring,2500,"Lucknow, Jaipur"
+6,Accounts Assistant,FinEdge,"basic it,data collection",Class 12th,Rural,Finance,Help maintain transaction records,2200,"Village C, Patna"
+
+7,Junior Developer,SoftByte,"communication,basic it",Graduate,Urban,IT,Assist in software modules,6000,"Delhi, Mumbai, Hyderabad"
+8,Training Intern,AcadBoost,"communication,data collection",Graduate,Semi-Urban,Education,Develop learning material,5000,"Nagpur, Indore"
+9,Finance Analyst Intern,CreditWise,"problem solving,basic it",Graduate,Rural,Finance,Assist in financial analysis,5500,"Gorakhpur, Varanasi"
+
+10,AI Research Intern,FutureAI,"problem solving,data collection",Post-Graduate,Urban,IT,Contribute to ML research,12000,"Bengaluru, Chennai"
+11,Education Policy Intern,EdPolicy Lab,"communication,problem solving",Post-Graduate,Semi-Urban,Education,Assist in policy research,10000,"Lucknow, Jaipur"
+12,Financial Research Intern,FinLab,"data collection,problem solving",Post-Graduate,Rural,Finance,Support market research,11000,"Patna, Madurai"
+
+13,System Admin Intern,NetSys,"basic it,problem solving",Class 10th,Semi-Urban,IT,Maintain lab systems,2000,"Indore, Jaipur"
+14,Library Assistant,ReadMore,"communication,data collection",Class 10th,Urban,Education,Assist in library management,1500,"Delhi, Kolkata"
+15,Cash Counter Intern,SafeBank,"communication,basic it",Class 10th,Rural,Finance,Assist teller in cash handling,1800,"Village A, Village B"
+
+16,Helpdesk Intern,CloudNet,"communication,basic it",Class 12th,Urban,IT,Provide customer tech support,2500,"Hyderabad, Pune"
+17,Teaching Support,SmartEd,"communication,problem solving",Class 12th,Rural,Education,Assist with online classes,2200,"Village C, Varanasi"
+18,Accounts Entry Intern,BookKeepers,"basic it,data collection",Class 12th,Semi-Urban,Finance,Support ledger updates,2600,"Lucknow, Nagpur"
+
+19,Fullstack Intern,WebCraft,"problem solving,basic it",Graduate,Urban,IT,Build web modules,7000,"Bengaluru, Delhi"
+20,Research Assistant,ScholarsOrg,"data collection,communication",Graduate,Semi-Urban,Education,Assist professors in research,6000,"Indore, Jaipur"
+21,Investment Intern,WealthGrow,"problem solving,basic it",Graduate,Rural,Finance,Help prepare investment reports,6500,"Patna, Gorakhpur"
+
+22,Data Engineer Intern,InfoTech,"problem solving,data collection",Post-Graduate,Urban,IT,Process big datasets,14000,"Hyderabad, Bengaluru"
+23,Curriculum Designer,EdTech Global,"communication,creativity",Post-Graduate,Semi-Urban,Education,Design digital curriculum,12000,"Lucknow, Nagpur"
+24,Risk Analyst Intern,FinSecure,"problem solving,data collection",Post-Graduate,Rural,Finance,Work on risk models,13500,"Madurai, Patna"
+
+25,Network Intern,SysCare,"basic it,communication",Class 10th,Urban,IT,Support networking setup,2000,"Mumbai, Delhi"
+26,Lab Assistant,SchoolLabs,"data collection,problem solving",Class 10th,Semi-Urban,Education,Assist in science experiments,1600,"Nagpur, Indore"
+27,Finance Helper,MicroFin,"communication,basic it",Class 10th,Rural,Finance,Assist loan officers,1700,"Village B, Varanasi"
+
+28,Junior Tester,AppWorks,"basic it,problem solving",Class 12th,Urban,IT,Perform app testing tasks,3000,"Chennai, Bengaluru"
+29,Community Tutor,LearnAid,"communication,problem solving",Class 12th,Semi-Urban,Education,Help underprivileged students,2400,"Jaipur, Indore"
+30,Clerk Intern,SmallBank,"data collection,basic it",Class 12th,Rural,Finance,Manage branch records,2200,"Village A, Gorakhpur"
+
+31,Backend Dev Intern,CloudSoft,"problem solving,python",Graduate,Urban,IT,Support API development,8000,"Delhi, Bengaluru"
+32,Education Analyst,ThinkEd,"data collection,communication",Graduate,Semi-Urban,Education,Conduct education surveys,7000,"Nagpur, Jaipur"
+33,Finance Tracker Intern,FinServe,"basic it,problem solving",Graduate,Rural,Finance,Support budget tracking,7500,"Patna, Madurai"
+
+34,AI Specialist Intern,DeepTech,"problem solving,data collection",Post-Graduate,Urban,IT,Work on deep learning models,15000,"Hyderabad, Chennai"
+35,EdTech Innovator,NextGenEd,"communication,problem solving",Post-Graduate,Semi-Urban,Education,Contribute to edtech projects,13000,"Lucknow, Indore"
+36,Market Research Intern,FinScope,"data collection,problem solving",Post-Graduate,Rural,Finance,Analyze rural markets,14000,"Gorakhpur, Varanasi"
