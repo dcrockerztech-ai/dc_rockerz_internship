@@ -89,9 +89,9 @@
 
 <script>
 (function(){
-  // Force API base to Render URL if available, fallback to local
-  const API_BASE = "https://pminternpath.onrender.com";
-  const ENDPOINT = API_BASE + "/recommend";
+  // Always use current site domain as API base
+  const API_BASE = window.location.origin;
+  const ENDPOINT = API_BASE + '/recommend';
 
   const form = document.getElementById('recommendation-form');
   const loadingEl = document.getElementById('loading');
@@ -108,38 +108,51 @@
   function getSelectedSkills(){
     return Array.from(document.querySelectorAll('.chip.selected')).map(c => c.dataset.value);
   }
-
   function getSelectedSector(){
     const r = document.querySelector('input[name="sector"]:checked');
     return r ? r.value : '';
   }
-
   function showLoading(on){ loadingEl.style.display = on ? 'block' : 'none'; }
   function showError(msg){ errorEl.style.display = msg ? 'block' : 'none'; errorEl.textContent = msg || ''; }
 
   function renderResults(list){
     resultsEl.innerHTML = '';
     if (!list || list.length === 0){
-      resultsEl.innerHTML = '<div class="card"><p class="hint">No internships found — try different filters.</p></div>';
+      resultsEl.innerHTML = '<div class="card"><p>No internships found.</p></div>';
       return;
     }
     list.forEach(job => {
       const div = document.createElement('div');
       div.className = 'intern';
+      const title = job.title || job.name || 'Untitled';
+      const company = job.company || job.company_name || '';
+      const skills = job.skills || job.required_skills || '';
+      const locs = job.expanded_locations || job.eligible_locations || job.location || '';
+      const stipend = job.stipend ? (' | ₹' + job.stipend) : '';
       div.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <strong>${job.title || 'Untitled'}</strong>
-            <div class="meta">${job.company || ''} ${job.stipend ? ' | ₹'+job.stipend : ''}</div>
-          </div>
-          <div style="font-size:1.3rem">${job.tags || ''}</div>
+          <div><strong>${escapeHtml(title)}</strong><div class="meta">${escapeHtml(company)}${stipend}</div></div>
         </div>
-        <div class="meta">Locations: ${job.location || ''}</div>
-        <div class="skill-tags">${(job.skills || '').split(',').map(s => '<span class="skill-tag">'+s.trim()+'</span>').join('')}</div>
-        <div class="meta text-blue-700">Matched by: ${job.matched_by || 'N/A'} | Score: ${(job.score*100).toFixed(0)}%</div>
+        <div class="meta">Locations: ${escapeHtml(locs)}</div>
+        <div class="skill-tags">${(skills || '').toString().split(',').filter(Boolean).map(s => '<span class="skill-tag">'+escapeHtml(s.trim())+'</span>').join('')}</div>
       `;
       resultsEl.appendChild(div);
     });
+  }
+
+  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  async function fetchWithTimeout(url, options = {}, timeout = 15000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+      const res = await fetch(url, Object.assign({}, options, { signal: controller.signal }));
+      clearTimeout(id);
+      return res;
+    } catch (err) {
+      clearTimeout(id);
+      throw err;
+    }
   }
 
   form.addEventListener('submit', async (e) => {
@@ -157,22 +170,27 @@
     };
 
     try {
-      const res = await fetch(ENDPOINT, {
+      const res = await fetchWithTimeout(ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type':'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
-      });
-      if(!res.ok) throw new Error("Server error: " + res.status);
-      const data = await res.json();
-      renderResults(data.results || []);
-    } catch(err){
-      showError(err.message || 'Error connecting to server');
+      }, 15000);
+
+      if (!res.ok) {
+        throw new Error('Server error: ' + res.status);
+      }
+
+      const data = await res.json().catch(()=>null);
+      renderResults(Array.isArray(data) ? data : (data && data.results ? data.results : []));
+    } catch (err) {
+      showError(err.message || 'An error occurred.');
     } finally {
       showLoading(false);
     }
   });
 })();
 </script>
+
 
 </body>
 </html>
