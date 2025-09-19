@@ -89,8 +89,9 @@
 
 <script>
 (function(){
-  const API_BASE = 'http://127.0.0.1:5000';
-  const ENDPOINT = API_BASE + '/recommend';
+  // Force API base to Render URL if available, fallback to local
+  const API_BASE = "https://pminternpath.onrender.com";
+  const ENDPOINT = API_BASE + "/recommend";
 
   const form = document.getElementById('recommendation-form');
   const loadingEl = document.getElementById('loading');
@@ -98,7 +99,6 @@
   const resultsEl = document.getElementById('results');
   const chips = document.getElementById('skillsChips');
 
-  // chip selection handler (no inputs required)
   chips.addEventListener('click', (ev) => {
     const chip = ev.target.closest('.chip');
     if (!chip) return;
@@ -114,66 +114,32 @@
     return r ? r.value : '';
   }
 
-  function showLoading(on){
-    loadingEl.style.display = on ? 'block' : 'none';
-  }
-  function showError(msg){
-    errorEl.style.display = msg ? 'block' : 'none';
-    errorEl.textContent = msg || '';
-  }
+  function showLoading(on){ loadingEl.style.display = on ? 'block' : 'none'; }
+  function showError(msg){ errorEl.style.display = msg ? 'block' : 'none'; errorEl.textContent = msg || ''; }
 
-  // render results
-  function renderResults(payload){
+  function renderResults(list){
     resultsEl.innerHTML = '';
-    if (!payload || (Array.isArray(payload) && payload.length === 0)) {
-      resultsEl.innerHTML = '<div class="card"><p class="hint">No internships found — try broader skills or education level.</p></div>';
-      return;
-    }
-
-    const list = Array.isArray(payload) ? payload : (payload.results || []);
     if (!list || list.length === 0){
       resultsEl.innerHTML = '<div class="card"><p class="hint">No internships found — try different filters.</p></div>';
       return;
     }
-
     list.forEach(job => {
       const div = document.createElement('div');
       div.className = 'intern';
-      const title = job.title || job.name || 'Untitled';
-      const company = job.company || job.company_name || '';
-      const skills = job.skills || job.required_skills || '';
-      const locs = job.expanded_locations || job.eligible_locations || job.location || '';
-      const stipend = job.stipend ? (' | ₹' + job.stipend) : '';
-
       div.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center">
-          <div><strong>${escapeHtml(title)}</strong><div class="meta">${escapeHtml(company)}${stipend}</div></div>
+          <div>
+            <strong>${job.title || 'Untitled'}</strong>
+            <div class="meta">${job.company || ''} ${job.stipend ? ' | ₹'+job.stipend : ''}</div>
+          </div>
           <div style="font-size:1.3rem">${job.tags || ''}</div>
         </div>
-        <div class="meta">Locations: ${escapeHtml(locs)}</div>
-        <div class="skill-tags">${(skills || '').toString().split(',').filter(Boolean).map(s => '<span class="skill-tag">'+escapeHtml(s.trim())+'</span>').join('')}</div>
+        <div class="meta">Locations: ${job.location || ''}</div>
+        <div class="skill-tags">${(job.skills || '').split(',').map(s => '<span class="skill-tag">'+s.trim()+'</span>').join('')}</div>
+        <div class="meta text-blue-700">Matched by: ${job.matched_by || 'N/A'} | Score: ${(job.score*100).toFixed(0)}%</div>
       `;
       resultsEl.appendChild(div);
     });
-  }
-
-  function escapeHtml(s){
-    return String(s||'').replace(/&/g,'&amp;')
-                        .replace(/</g,'&lt;')
-                        .replace(/>/g,'&gt;');
-  }
-
-  async function fetchWithTimeout(url, options = {}, timeout = 15000) {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    try {
-      const res = await fetch(url, Object.assign({}, options, { signal: controller.signal }));
-      clearTimeout(id);
-      return res;
-    } catch (err) {
-      clearTimeout(id);
-      throw err;
-    }
   }
 
   form.addEventListener('submit', async (e) => {
@@ -190,35 +156,21 @@
       location: document.getElementById('location').value || ''
     };
 
-    console.log('Payload →', payload, 'POST ->', ENDPOINT);
-
     try {
-      const res = await fetchWithTimeout(ENDPOINT, {
+      const res = await fetch(ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type':'application/json' },
         body: JSON.stringify(payload)
-      }, 15000);
-
-      if (!res.ok) {
-        const txt = await res.text().catch(()=>'<no-body>');
-        console.error('Non-OK response', res.status, txt);
-        throw new Error('Server error: ' + res.status + ' — see console.');
-      }
-
-      const data = await res.json().catch(()=>null);
-      console.log('Response ->', data);
-
-      const resultList = Array.isArray(data) ? data : (data && data.results ? data.results : data);
-      renderResults(resultList);
-
-    } catch (err) {
-      console.error('Fetch/Processing error', err);
-      showError(err.message || 'An error occurred. Check console and server logs.');
+      });
+      if(!res.ok) throw new Error("Server error: " + res.status);
+      const data = await res.json();
+      renderResults(data.results || []);
+    } catch(err){
+      showError(err.message || 'Error connecting to server');
     } finally {
       showLoading(false);
     }
   });
-
 })();
 </script>
 
