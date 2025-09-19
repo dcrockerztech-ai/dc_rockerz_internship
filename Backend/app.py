@@ -5,8 +5,7 @@ import csv, os
 from logic import recommend
 
 # point Flask to Frontend folder for templates
-FRONTEND_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Frontend"))
-app = Flask(__name__, template_folder=FRONTEND_FOLDER)
+app = Flask(__name__, template_folder="templates")
 CORS(app)
 
 # robust path to dataset
