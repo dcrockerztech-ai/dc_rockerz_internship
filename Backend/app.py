@@ -1,76 +1,71 @@
-# app.py
-from flask import Flask, request, jsonify, render_template, send_from_directory
+import os
+import json
+import csv
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-import csv, os
 from logic import recommend
 
-# point Flask to Frontend folder for templates
-app = Flask(__name__, template_folder="templates")
+# Flask setup with templates folder
+TEMPLATE_FOLDER = os.path.join(os.path.dirname(__file__), "templates")
+app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
 CORS(app)
 
-# robust path to dataset
-DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "internship.csv"))
+# Dataset path
+DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "Data", "internships.csv")
 
-# fail-fast check
-if not os.path.isfile(DATA_PATH):
-    print("ERROR: data file not found at:", DATA_PATH)
-    import sys; sys.exit(1)
+# Load dataset
+INTERN = []
+with open(DATA_PATH, newline="", encoding="utf-8") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        INTERN.append({
+            "id": row.get("id", ""),
+            "title": row.get("title", ""),
+            "company": row.get("company", ""),
+            "location": row.get("location", ""),
+            "skills": row.get("skills", ""),
+            "stipend": row.get("stipend", ""),
+        })
 
-# load internships
-def load_internships():
-    internships = []
-    with open(DATA_PATH, newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for r in reader:
-            internships.append(r)
-    return internships
 
-INTERN = load_internships()
+# ---------------- Routes ---------------- #
 
-# health check
-@app.route('/health')
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+@app.route("/finder")
+def finder():
+    return render_template("finder.html")
+
+
+@app.route("/health")
 def health():
     return jsonify({"status": "ok", "count": len(INTERN)})
 
-# recommend endpoint
-@app.route('/recommend', methods=['POST'])
-def recommend_api():
-    payload = request.json or {}
-    results = recommend(payload, INTERN, top_k=5)
-    return jsonify({"results": results})
 
-# sample endpoint
-import random
-@app.route('/sample')
+@app.route("/sample")
 def sample():
-    sample_jobs = random.sample(INTERN, min(5, len(INTERN)))
-    return jsonify({
-        "results": [
-            {
-                "id": j.get("id"),
-                "title": j.get("title"),
-                "company": j.get("company"),
-                "location": j.get("location"),
-                "skills": j.get("skills"),
-                "tags": j.get("tags"),
-                "stipend": j.get("stipend")
-            }
-            for j in sample_jobs
-        ]
-    })
+    return jsonify(INTERN[:5])
 
-# serve frontend
-@app.route('/')
-def home():
-    return render_template('index.html')
 
-@app.route('/finder.html')
-def finder():
-    return render_template('finder.html')
+@app.route("/recommend", methods=["POST"])
+def recommend_api():
+    try:
+        payload = request.get_json(force=True)
 
-@app.route('/<path:filename>')
-def static_files(filename):
-    return send_from_directory(FRONTEND_FOLDER, filename)
+        # Normalize: ensure skills are string (not list)
+        if isinstance(payload.get("skills"), list):
+            payload["skills"] = ",".join(payload["skills"])
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+        results = recommend(payload, INTERN, top_k=5)
+        return jsonify({"results": results})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    # For local dev only; Render will use gunicorn
+    app.run(host="0.0.0.0", port=5000, debug=True)
