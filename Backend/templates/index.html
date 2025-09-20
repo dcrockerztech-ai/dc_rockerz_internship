@@ -4,156 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PM Internpath Clone</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; color:#333; }
-    .header-top { background:#fff; box-shadow:0 2px 4px rgba(0,0,0,0.1); position:sticky; top:0; z-index:50; }
-    .nav-link:hover { color:#0084ff; }
-    .nav-btn { border:1px solid #e0e0e0; padding:8px 16px; border-radius:8px; font-weight:500; transition:all 0.3s; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color:#333;
+    }
+    html, body {
+      overscroll-behavior: none; /* 🔒 disables the spring/bounce effect */
+    }
+   .glass-nav {
+  background: rgba(255,255,255,0.25); /* same transparency */
+  backdrop-filter: blur(6px) saturate(1.2);  /* much less blur */
+  -webkit-backdrop-filter: blur(2px) saturate(1.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 16px rgba(31,38,135,0.1);
+    }
+
+
+    .nav-btn {
+      border:1px solid #e0e0e0;
+      padding:8px 16px;
+      border-radius:8px;
+      font-weight:500;
+      transition:.3s;
+    }
     .nav-btn:hover { transform:translateY(-3px); }
-    .nav-btn.primary { background:#0084ff; color:#fff; border-color:#0084ff; }
+    .nav-btn.primary {
+      background:#0084ff;
+      color:#fff;
+      border-color:#0084ff;
+    }
     .nav-btn.primary:hover { background:#006dd0; }
-    .card { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); transition:transform 0.3s; }
+    .card {
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      transition:.3s;
+    }
     .card:hover { transform:translateY(-5px); }
-    .modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; }
-    .modal-content { background:#fff; padding:24px; border-radius:12px; text-align:center; }
-    .close-btn { float:right; cursor:pointer; font-size:1.5rem; color:#888; }
   </style>
 </head>
 <body class="bg-gray-100">
 
-  <!-- Modal -->
-  <div id="actionModal" class="modal">
-    <div class="modal-content w-11/12 md:w-1/3">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <p id="modal-message" class="text-lg font-medium"></p>
-    </div>
-  </div>
-
-  <!-- Navbar -->
-  <header class="header-top py-4">
-    <div class="flex items-center justify-between px-2 md:px-6">
-
-      <!-- Logos side by side -->
-      <div class="flex items-center space-x-2 md:space-x-4 ml-0">
-
-        <img src="{{ url_for('static', filename='MCA.jpeg') }}" alt="MCA" class="h-12">
-        <img src="{{ url_for('static', filename='pminternpath.png') }}" alt="PM Internpath" class="h-12">
-
+  <!-- Navbar with glass effect -->
+  <header class="glass-nav py-4 sticky top-0 z-50">
+    <div class="flex items-center justify-between px-4 md:px-6">
+      <div class="flex items-center space-x-4">
+        <img src="MCA.png" alt="MCA" class="h-12">
+        <img src="pminternpath.png" alt="PM Internpath" class="h-12">
       </div>
-
-
-
-      <!-- Nav Links -->
-
-
-      <!-- Buttons -->
-      <div class="flex items-center space-x-4 mr-2 md:mr-6">
-        <a href="#" id="loginBtn" class="nav-btn">Log in</a>
-        <a href="#" id="registerBtn" class="nav-btn primary">Register</a>
+      <div class="flex items-center space-x-4">
+        <a href="#" class="nav-btn">Log in</a>
+        <a href="#" class="nav-btn primary">Register</a>
       </div>
     </div>
   </header>
 
   <!-- Hero -->
   <main>
-    <section id="hero" class="relative bg-blue-100 py-20 md:py-32 flex flex-col items-center text-center px-6">
-      <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
-        Make your first move<br> with PM Internpath
-      </h1>
-      <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+    <section class="bg-blue-100 py-20 md:py-32 flex flex-col items-center text-center px-6">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Make your first move<br> with PM Internpath</h1>
+      <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl">
         Discover the best internships. Your journey to a successful career starts here.
       </p>
-
-      <!-- Explore Internships Button -->
       <div class="mt-8">
-      <a href="/finder"
-     class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-md transition-transform duration-300 hover:bg-blue-700 hover:translate-y-[-3px] inline-block">
-      Explore Internships
-      </a>
+        <a href="/finder"
+           class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-md
+                  hover:bg-blue-700">
+          Explore Internships
+        </a>
       </div>
     </section>
 
-<!-- Categories -->
-<section id="internships" class="container mx-auto px-6 py-16">
-  <!-- Left-aligned heading -->
-  <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by category</h2>
+    <!-- Categories -->
+    <section class="container mx-auto px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by category</h2>
+      <div class="flex justify-center">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Part-time</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Engineering</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Marketing</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Design</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Data Science</h3></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Centered cards -->
-  <div class="flex justify-center">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Part-time</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Engineering</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Marketing</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Design</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Data Science</h3></div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Locations -->
-<section id="locations" class="container mx-auto px-6 py-16 bg-white">
-  <!-- Left-aligned heading -->
-  <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by location</h2>
-
-  <!-- Centered cards -->
-  <div class="flex justify-center">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Delhi</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Bangalore</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Mumbai</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Hyderabad</h3></div>
-      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Chennai</h3></div>
-    </div>
-  </div>
-</section>
-
+    <!-- Locations -->
+    <section class="container mx-auto px-6 py-16 bg-white">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by location</h2>
+      <div class="flex justify-center">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Delhi</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Bangalore</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Mumbai</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Hyderabad</h3></div>
+          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Chennai</h3></div>
+        </div>
+      </div>
+    </section>
   </main>
 
-<!-- Footer -->
-<footer class="bg-gray-800 text-white py-12">
-  <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start">
-
-    <!-- Left side: Internpath -->
-    <div>
-      <h4 class="font-bold text-lg mb-4">InternPath</h4>
-      <ul>
-        <li class="mb-2"><a href="#">About Us</a></li>
-      </ul>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start">
+      <div>
+        <h4 class="font-bold text-lg mb-4">InternPath</h4>
+        <ul><li class="mb-2"><a href="#">About Us</a></li></ul>
+      </div>
+      <div class="mt-8 md:mt-0 text-left md:text-right">
+        <h4 class="font-bold text-lg mb-4">Connect With Us</h4>
+        <ul>
+          <li class="mb-2"><a href="#">Twitter</a></li>
+          <li class="mb-2"><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
     </div>
-
-    <!-- Right side: Connect with us -->
-    <div class="mt-8 md:mt-0 text-left md:text-right">
-      <h4 class="font-bold text-lg mb-4">Connect With US</h4>
-      <ul>
-        <li class="mb-2"><a href="#">Twitter</a></li>
-        <li class="mb-2"><a href="#">LinkedIn</a></li>
-      </ul>
+    <div class="text-center mt-8">
+      <p class="text-sm">&copy; 2025 Internpath. All Rights Reserved.</p>
     </div>
-  </div>
-
-  <!-- Bottom note -->
-  <div class="text-center mt-8">
-    <p class="text-sm">&copy; 2025 Internpath. All Rights Reserved.</p>
-  </div>
-</footer>
-
-
-
-  <script>
-    const actionModal = document.getElementById('actionModal');
-    const modalMessage = document.getElementById('modal-message');
-    function openModal(msg){ modalMessage.textContent=msg; actionModal.style.display='flex'; }
-    function closeModal(){ actionModal.style.display='none'; }
-    document.getElementById('loginBtn').addEventListener('click',e=>{
-      e.preventDefault(); openModal('Log In not implemented.');
-    });
-    document.getElementById('registerBtn').addEventListener('click',e=>{
-      e.preventDefault(); openModal('Registration not implemented.');
-    });
-  </script>
+  </footer>
 </body>
 </html>
