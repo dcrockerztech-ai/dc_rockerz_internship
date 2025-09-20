@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,51 +10,67 @@
     body {
       font-family: 'Inter', sans-serif;
       color: #333;
-      background: linear-gradient(135deg, #f8fcff, #e2f2ff); /* ✅ Gradient */
+      background: linear-gradient(135deg, #f8fcff, #e2f2ff);
+      /* ✅ Gradient */
     }
-    html, body {
-      overscroll-behavior: none; /* ✅ disables spring/bounce */
+
+    html,
+    body {
+      overscroll-behavior: none;
+      /* ✅ disables spring/bounce */
     }
 
     .glass-nav {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(6px) saturate(1.5);
       -webkit-backdrop-filter: blur(14px) saturate(1.5);
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 4px 16px rgba(31,38,135,0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 16px rgba(31, 38, 135, 0.1);
     }
 
     .nav-btn {
-      border:1px solid #e0e0e0;
-      padding:8px 16px;
-      border-radius:8px;
-      font-weight:500;
-      transition:.3s;
+      border: 1px solid #e0e0e0;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: .3s;
     }
-    .nav-btn:hover { transform:translateY(-3px); }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+    }
+
     .nav-btn.primary {
-      background:#0084ff;
-      color:#fff;
-      border-color:#0084ff;
+      background: #0084ff;
+      color: #fff;
+      border-color: #0084ff;
     }
-    .nav-btn.primary:hover { background:#006dd0; }
+
+    .nav-btn.primary:hover {
+      background: #006dd0;
+    }
+
     .card {
-      background:#fff;
-      border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08);
-      transition:.3s;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: .3s;
     }
-    .card:hover { transform:translateY(-5px); }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Navbar with glass effect -->
   <header class="glass-nav py-4 sticky top-0 z-50">
     <div class="flex items-center justify-between px-4 md:px-6">
       <div class="flex items-center space-x-4">
-        <img src="MCA.png" alt="MCA" class="h-12">
-        <img src="pminternpath.png" alt="PM Internpath" class="h-12">
+        <img src="{{ url_for('static', filename='MCA.png') }}" alt="MCA" class="h-12">
+        <img src="{{ url_for('static', filename='pminternpath.png') }}" alt="PM Internpath" class="h-12">
       </div>
       <div class="flex items-center space-x-4">
         <a href="#" class="nav-btn">Log in</a>
@@ -70,8 +87,7 @@
         Discover the best internships. Your journey to a successful career starts here.
       </p>
       <div class="mt-8">
-        <a href="/finder"
-           class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-md
+        <a href="/finder" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-md
                   hover:bg-blue-700">
           Explore Internships
         </a>
@@ -83,11 +99,21 @@
       <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by category</h2>
       <div class="flex justify-center">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Part-time</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Engineering</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Marketing</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Design</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Data Science</h3></div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Part-time</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Engineering</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Marketing</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Design</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Data Science</h3>
+          </div>
         </div>
       </div>
     </section>
@@ -97,11 +123,21 @@
       <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by location</h2>
       <div class="flex justify-center">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Delhi</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Bangalore</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Mumbai</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Hyderabad</h3></div>
-          <div class="card p-6 text-center"><h3 class="text-lg font-bold">Chennai</h3></div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Delhi</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Bangalore</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Mumbai</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Hyderabad</h3>
+          </div>
+          <div class="card p-6 text-center">
+            <h3 class="text-lg font-bold">Chennai</h3>
+          </div>
         </div>
       </div>
     </section>
@@ -112,7 +148,9 @@
     <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start">
       <div>
         <h4 class="font-bold text-lg mb-4">InternPath</h4>
-        <ul><li class="mb-2"><a href="#">About Us</a></li></ul>
+        <ul>
+          <li class="mb-2"><a href="#">About Us</a></li>
+        </ul>
       </div>
       <div class="mt-8 md:mt-0 text-left md:text-right">
         <h4 class="font-bold text-lg mb-4">Connect With Us</h4>
@@ -127,4 +165,5 @@
     </div>
   </footer>
 </body>
+
 </html>
