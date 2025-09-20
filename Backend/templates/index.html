@@ -1,287 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PM Internship Scheme Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM Internpath Clone</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- GSAP for animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; color: #333; }
-    .header-top { background-color: #f7f7f7; border-bottom: 1px solid #ddd;
-      display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; }
-    .header-main { background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
-    .nav-link { transition: color 0.3s; }
-    .nav-link:hover { color: #1a73e8; }
-    .section-header { color: #1a73e8; font-weight: 700; }
-    .card {
-      background: #fff; border-radius: 16px;
-      padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-      position: relative; overflow: hidden;
-      cursor: pointer;
-    }
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(132,0,255,0.4), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
-    .card:hover::after { opacity: 1; }
-    .btn-primary { background-color: #1a73e8; color: white; padding: 10px 20px; border-radius: 8px;
-      font-weight: 500; transition: background-color 0.3s; }
-    .btn-primary:hover { background-color: #155bb5; }
-    @media (max-width: 768px) { .header-top { flex-direction: column; gap: 8px; } }
-
-    /* Spotlight */
-    #global-spotlight {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(132,0,255,0.15) 0%, transparent 70%);
-      pointer-events: none;
-      mix-blend-mode: screen;
-      opacity: 0;
-      z-index: 1000;
-    }
-
-    /* Particle style */
-    .particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(132, 0, 255, 1);
-      box-shadow: 0 0 8px rgba(132, 0, 255, 0.6);
-      pointer-events: none;
-    }
+    body { font-family: 'Inter', sans-serif; color:#333; }
+    .header-top { background:#fff; box-shadow:0 2px 4px rgba(0,0,0,0.1); position:sticky; top:0; z-index:50; }
+    .nav-link:hover { color:#0084ff; }
+    .nav-btn { border:1px solid #e0e0e0; padding:8px 16px; border-radius:8px; font-weight:500; transition:all 0.3s; }
+    .nav-btn:hover { transform:translateY(-3px); }
+    .nav-btn.primary { background:#0084ff; color:#fff; border-color:#0084ff; }
+    .nav-btn.primary:hover { background:#006dd0; }
+    .card { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); transition:transform 0.3s; }
+    .card:hover { transform:translateY(-5px); }
+    .modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; }
+    .modal-content { background:#fff; padding:24px; border-radius:12px; text-align:center; }
+    .close-btn { float:right; cursor:pointer; font-size:1.5rem; color:#888; }
   </style>
 </head>
 <body class="bg-gray-100">
 
-  <!-- Top Bar -->
-  <div class="header-top text-sm">
-    <div class="flex items-center space-x-2">
-      <span>Language:</span>
-      <select class="p-1 rounded-md">
-        <option>English</option>
-        <option>Hindi</option>
-      </select>
-      <span class="cursor-pointer">Screen Reader</span>
-      <span class="ml-4">Text Size:</span>
-      <span class="cursor-pointer">A-</span>
-      <span class="cursor-pointer">A</span>
-      <span class="cursor-pointer">A+</span>
-    </div>
-    <div class="flex items-center space-x-4">
-      <a href="finder.html" class="btn-primary">Youth Registration</a>
-      <a href="finder.html" class="btn-primary">Login</a>
+  <!-- Modal -->
+  <div id="actionModal" class="modal">
+    <div class="modal-content w-11/12 md:w-1/3">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <p id="modal-message" class="text-lg font-medium"></p>
     </div>
   </div>
 
-  <!-- Main Header -->
-  <header class="header-main sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between">
-      <div class="flex items-center space-x-4">
-        <img src="https://placehold.co/80x80/295c5d/fff?text=GOV" alt="Gov Logo" class="w-16 h-16 rounded-full">
-        <img src="https://placehold.co/100x80/1a73e8/fff?text=PM+Internship" alt="Portal Logo" class="w-24 h-16 rounded-lg">
+  <!-- Navbar -->
+  <header class="header-top py-4">
+    <div class="flex items-center justify-between px-2 md:px-6">
+
+      <!-- Logos side by side -->
+      <div class="flex items-center space-x-2 md:space-x-4 ml-0">
+        <img src="MCA.jpeg" alt="MCA Logo" class="h-12">
+        <img src="Pm internpath.png" alt="PM Internpath Logo" class="h-12">
       </div>
-      <nav class="mt-4 md:mt-0">
-        <ul class="flex space-x-6 text-lg font-medium">
-          <li><a href="#home" class="nav-link text-blue-600 font-bold">Home</a></li>
-          <li><a href="#gallery" class="nav-link">Gallery</a></li>
-          <li><a href="#eligibility" class="nav-link">Eligibility</a></li>
-          <li><a href="#opportunities" class="nav-link">Opportunities</a></li>
-          <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
-          <li><a href="#partners" class="nav-link">Partners</a></li>
-          <li><a href="finder.html" class="nav-link font-bold text-blue-600">Internship Finder</a></li>
-        </ul>
-      </nav>
+
+      <!-- Nav Links -->
+
+
+      <!-- Buttons -->
+      <div class="flex items-center space-x-4 mr-2 md:mr-6">
+        <a href="#" id="loginBtn" class="nav-btn">Log in</a>
+        <a href="#" id="registerBtn" class="nav-btn primary">Register</a>
+      </div>
     </div>
   </header>
 
   <!-- Hero -->
-  <section id="home" class="text-center py-12">
-    <h1 class="text-4xl font-bold mb-4">PM Internship Scheme</h1>
-    <p class="text-lg max-w-2xl mx-auto text-gray-600">
-      Welcome to the official portal for the Prime Minister's Internship Scheme. Connecting youth with opportunities across sectors.
-    </p>
-  </section>
+  <main>
+    <section id="hero" class="relative bg-blue-100 py-20 md:py-32 flex flex-col items-center text-center px-6">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
+        Make your first move<br> with PM Internpath
+      </h1>
+      <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+        Discover the best internships. Your journey to a successful career starts here.
+      </p>
 
-  <!-- Gallery -->
-  <section id="gallery" class="my-12 container mx-auto px-6">
-    <h2 class="text-3xl section-header mb-6">Gallery</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="card"><h3 class="font-bold mb-2">Social Media</h3><img src="https://placehold.co/600x400?text=Gallery1"></div>
-      <div class="card"><h3 class="font-bold mb-2">Events</h3><img src="https://placehold.co/600x400?text=Gallery2"></div>
-    </div>
-  </section>
+      <!-- Explore Internships Button -->
+      <div class="mt-8">
+      <a href="/finder"
+     class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-md transition-transform duration-300 hover:bg-blue-700 hover:translate-y-[-3px] inline-block">
+      Explore Internships
+      </a>
+      </div>
+    </section>
 
-  <!-- Eligibility -->
-  <section id="eligibility" class="my-12 container mx-auto px-6">
-    <h2 class="text-3xl section-header mb-6">Eligibility</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="card text-center"><h3 class="font-bold">Age</h3><p>18–25 years</p></div>
-      <div class="card text-center"><h3 class="font-bold">Education</h3><p>Student/Graduate</p></div>
-      <div class="card text-center"><h3 class="font-bold">Citizenship</h3><p>Indian</p></div>
-    </div>
-  </section>
+<!-- Categories -->
+<section id="internships" class="container mx-auto px-6 py-16">
+  <!-- Left-aligned heading -->
+  <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by category</h2>
 
-  <!-- Opportunities -->
-  <section id="opportunities" class="my-12 container mx-auto px-6">
-    <h2 class="text-3xl section-header mb-6">Explore Opportunities</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <div class="card text-center">Pharma</div>
-      <div class="card text-center">Retail</div>
-      <div class="card text-center">Telecom</div>
-      <div class="card text-center">Auto</div>
-    </div>
-  </section>
-
-  <!-- Dashboard -->
-  <section id="dashboard" class="my-12 container mx-auto px-6">
-    <h2 class="text-3xl section-header mb-6">Dashboard</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="card">Total Internships <p id="stat-total" class="text-2xl font-bold">0</p></div>
-      <div class="card">Locations <p id="stat-locations" class="text-2xl font-bold">0</p></div>
-      <div class="card">Skills <p id="stat-skills" class="text-2xl font-bold">0</p></div>
-      <div class="card">Education <p id="stat-education" class="text-2xl font-bold">0</p></div>
-    </div>
-  </section>
-
-  <!-- Partners -->
-  <section id="partners" class="my-12 container mx-auto px-6">
-    <h2 class="text-3xl section-header mb-6">Partners</h2>
-    <div class="flex flex-wrap justify-center gap-8">
-      <img src="https://placehold.co/150x80?text=Partner1">
-      <img src="https://placehold.co/150x80?text=Partner2">
-      <img src="https://placehold.co/150x80?text=Partner3">
-    </div>
-  </section>
-
-  <!-- Spotlight -->
-  <div id="global-spotlight"></div>
-
-  <!-- Floating Chatbot -->
-  <div id="chatbotBtn" class="fixed bottom-6 right-6 z-50">
-    <div class="bg-blue-600 text-white rounded-full p-4 shadow-lg cursor-pointer">💬</div>
-  </div>
-  <div id="chatWindow" class="hidden fixed bottom-20 right-6 w-80 bg-white border rounded-lg shadow-lg flex flex-col">
-    <div class="bg-blue-600 text-white px-4 py-2 rounded-t-lg flex justify-between items-center">
-      <span>Internship Assistant</span>
-      <button onclick="toggleChat()" class="text-white">✖</button>
-    </div>
-    <div id="chatMessages" class="p-3 h-64 overflow-y-auto text-sm space-y-2"></div>
-    <div class="p-2 border-t flex">
-      <input id="chatInput" type="text" placeholder="Type a message..." class="flex-1 border rounded px-2 py-1 text-sm"/>
-      <button onclick="sendMessage()" class="ml-2 bg-blue-600 text-white px-3 py-1 rounded">Send</button>
+  <!-- Centered cards -->
+  <div class="flex justify-center">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Part-time</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Engineering</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Marketing</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Design</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Data Science</h3></div>
     </div>
   </div>
+</section>
 
-  <footer class="bg-gray-800 text-white py-6 mt-12 text-center">&copy; 2025 DC ROCKERZ</footer>
+
+
+<!-- Locations -->
+<section id="locations" class="container mx-auto px-6 py-16 bg-white">
+  <!-- Left-aligned heading -->
+  <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by location</h2>
+
+  <!-- Centered cards -->
+  <div class="flex justify-center">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Delhi</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Bangalore</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Mumbai</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Hyderabad</h3></div>
+      <div class="card p-6 text-center cursor-pointer"><h3 class="text-lg font-bold">Chennai</h3></div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-12">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start">
+
+    <!-- Left side: Internpath -->
+    <div>
+      <h4 class="font-bold text-lg mb-4">InternPath</h4>
+      <ul>
+        <li class="mb-2"><a href="#">About Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Right side: Connect with us -->
+    <div class="mt-8 md:mt-0 text-left md:text-right">
+      <h4 class="font-bold text-lg mb-4">Connect With US</h4>
+      <ul>
+        <li class="mb-2"><a href="#">Twitter</a></li>
+        <li class="mb-2"><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom note -->
+  <div class="text-center mt-8">
+    <p class="text-sm">&copy; 2025 Internpath. All Rights Reserved.</p>
+  </div>
+</footer>
+
+
 
   <script>
-    // Spotlight follow
-    const spotlight = document.getElementById("global-spotlight");
-    document.addEventListener("mousemove", e => {
-      gsap.to(spotlight, {
-        x: e.clientX,
-        y: e.clientY,
-        opacity: 1,
-        duration: 0.2,
-        ease: "power2.out"
-      });
+    const actionModal = document.getElementById('actionModal');
+    const modalMessage = document.getElementById('modal-message');
+    function openModal(msg){ modalMessage.textContent=msg; actionModal.style.display='flex'; }
+    function closeModal(){ actionModal.style.display='none'; }
+    document.getElementById('loginBtn').addEventListener('click',e=>{
+      e.preventDefault(); openModal('Log In not implemented.');
     });
-
-    // Tilt + ripple + particles
-    document.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("mousemove", e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -10;
-        const rotateY = ((x - centerX) / centerX) * 10;
-
-        card.style.setProperty("--x", x + "px");
-        card.style.setProperty("--y", y + "px");
-
-        gsap.to(card, {
-          rotateX, rotateY,
-          duration: 0.2,
-          ease: "power2.out",
-          transformPerspective: 1000
-        });
-      });
-
-      card.addEventListener("mouseleave", () => {
-        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.4, ease: "power2.out" });
-      });
-
-      card.addEventListener("click", e => {
-        const ripple = document.createElement("span");
-        ripple.style.position = "absolute";
-        ripple.style.borderRadius = "50%";
-        ripple.style.background = "rgba(132,0,255,0.3)";
-        ripple.style.width = ripple.style.height = "20px";
-        ripple.style.left = (e.clientX - card.getBoundingClientRect().left) + "px";
-        ripple.style.top = (e.clientY - card.getBoundingClientRect().top) + "px";
-        ripple.style.transform = "translate(-50%, -50%) scale(0)";
-        ripple.style.pointerEvents = "none";
-        card.appendChild(ripple);
-        gsap.to(ripple, { scale: 15, opacity: 0, duration: 0.8, ease: "power2.out", onComplete: () => ripple.remove() });
-      });
-
-      card.addEventListener("mouseenter", () => {
-        for (let i = 0; i < 8; i++) {
-          const p = document.createElement("div");
-          p.classList.add("particle");
-          p.style.left = Math.random() * card.offsetWidth + "px";
-          p.style.top = Math.random() * card.offsetHeight + "px";
-          card.appendChild(p);
-          gsap.to(p, {
-            x: (Math.random() - 0.5) * 100,
-            y: (Math.random() - 0.5) * 100,
-            duration: 2 + Math.random() * 2,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-          });
-        }
-      });
-      card.addEventListener("mouseleave", () => {
-        card.querySelectorAll(".particle").forEach(p => p.remove());
-      });
+    document.getElementById('registerBtn').addEventListener('click',e=>{
+      e.preventDefault(); openModal('Registration not implemented.');
     });
-
-    // Chatbot
-    const chatWindow = document.getElementById("chatWindow");
-    const chatBtn = document.getElementById("chatbotBtn");
-    const chatMessages = document.getElementById("chatMessages");
-    chatBtn.addEventListener("click", () => chatWindow.classList.toggle("hidden"));
-
-    async function sendMessage() {
-      const input = document.getElementById("chatInput");
-      const message = input.value.trim();
-      if (!message) return;
-      chatMessages.innerHTML += `<div class="text-right"><span class="bg-blue-100 px-2 py-1 rounded">${message}</span></div>`;
-      input.value = "";
-      const res = await fetch("http://127.0.0.1:5000/chatbot", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: message })
-      });
-      const data = await res.json();
-      chatMessages.innerHTML += `<div class="text-left"><span class="bg-gray-200 px-2 py-1 rounded">${data.reply}</span></div>`;
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
   </script>
 </body>
 </html>
