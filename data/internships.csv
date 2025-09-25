@@ -1,48 +1,26 @@
 id,title,company,skills,education,location,tags,description,stipend,expanded_locations
-1,IT Support Intern,TechSpark,"communication,basic it",Class 10th,Urban,IT,Assist IT team in troubleshooting,2000,"Delhi, Mumbai"
-2,Education Assistant,LearnWell,"communication,data collection",Class 10th,Semi-Urban,Education,Help teachers with classroom tasks,1500,"Indore, Nagpur"
-3,Finance Clerk Intern,MoneyMat,"basic it,problem solving",Class 10th,Rural,Finance,Assist with account entries,1800,"Village A, Village B"
-
-4,Web Dev Trainee,CodeHub,"basic it,problem solving",Class 12th,Urban,IT,Support frontend projects,3000,"Bengaluru, Pune"
-5,Tutoring Intern,Shiksha,"communication,problem solving",Class 12th,Semi-Urban,Education,Provide peer-to-peer tutoring,2500,"Lucknow, Jaipur"
-6,Accounts Assistant,FinEdge,"basic it,data collection",Class 12th,Rural,Finance,Help maintain transaction records,2200,"Village C, Patna"
-
-7,Junior Developer,SoftByte,"communication,basic it",Graduate,Urban,IT,Assist in software modules,6000,"Delhi, Mumbai, Hyderabad"
-8,Training Intern,AcadBoost,"communication,data collection",Graduate,Semi-Urban,Education,Develop learning material,5000,"Nagpur, Indore"
-9,Finance Analyst Intern,CreditWise,"problem solving,basic it",Graduate,Rural,Finance,Assist in financial analysis,5500,"Gorakhpur, Varanasi"
-
-10,AI Research Intern,FutureAI,"problem solving,data collection",Post-Graduate,Urban,IT,Contribute to ML research,12000,"Bengaluru, Chennai"
-11,Education Policy Intern,EdPolicy Lab,"communication,problem solving",Post-Graduate,Semi-Urban,Education,Assist in policy research,10000,"Lucknow, Jaipur"
-12,Financial Research Intern,FinLab,"data collection,problem solving",Post-Graduate,Rural,Finance,Support market research,11000,"Patna, Madurai"
-
-13,System Admin Intern,NetSys,"basic it,problem solving",Class 10th,Semi-Urban,IT,Maintain lab systems,2000,"Indore, Jaipur"
-14,Library Assistant,ReadMore,"communication,data collection",Class 10th,Urban,Education,Assist in library management,1500,"Delhi, Kolkata"
-15,Cash Counter Intern,SafeBank,"communication,basic it",Class 10th,Rural,Finance,Assist teller in cash handling,1800,"Village A, Village B"
-
-16,Helpdesk Intern,CloudNet,"communication,basic it",Class 12th,Urban,IT,Provide customer tech support,2500,"Hyderabad, Pune"
-17,Teaching Support,SmartEd,"communication,problem solving",Class 12th,Rural,Education,Assist with online classes,2200,"Village C, Varanasi"
-18,Accounts Entry Intern,BookKeepers,"basic it,data collection",Class 12th,Semi-Urban,Finance,Support ledger updates,2600,"Lucknow, Nagpur"
-
-19,Fullstack Intern,WebCraft,"problem solving,basic it",Graduate,Urban,IT,Build web modules,7000,"Bengaluru, Delhi"
-20,Research Assistant,ScholarsOrg,"data collection,communication",Graduate,Semi-Urban,Education,Assist professors in research,6000,"Indore, Jaipur"
-21,Investment Intern,WealthGrow,"problem solving,basic it",Graduate,Rural,Finance,Help prepare investment reports,6500,"Patna, Gorakhpur"
-
-22,Data Engineer Intern,InfoTech,"problem solving,data collection",Post-Graduate,Urban,IT,Process big datasets,14000,"Hyderabad, Bengaluru"
-23,Curriculum Designer,EdTech Global,"communication,creativity",Post-Graduate,Semi-Urban,Education,Design digital curriculum,12000,"Lucknow, Nagpur"
-24,Risk Analyst Intern,FinSecure,"problem solving,data collection",Post-Graduate,Rural,Finance,Work on risk models,13500,"Madurai, Patna"
-
-25,Network Intern,SysCare,"basic it,communication",Class 10th,Urban,IT,Support networking setup,2000,"Mumbai, Delhi"
-26,Lab Assistant,SchoolLabs,"data collection,problem solving",Class 10th,Semi-Urban,Education,Assist in science experiments,1600,"Nagpur, Indore"
-27,Finance Helper,MicroFin,"communication,basic it",Class 10th,Rural,Finance,Assist loan officers,1700,"Village B, Varanasi"
-
-28,Junior Tester,AppWorks,"basic it,problem solving",Class 12th,Urban,IT,Perform app testing tasks,3000,"Chennai, Bengaluru"
-29,Community Tutor,LearnAid,"communication,problem solving",Class 12th,Semi-Urban,Education,Help underprivileged students,2400,"Jaipur, Indore"
-30,Clerk Intern,SmallBank,"data collection,basic it",Class 12th,Rural,Finance,Manage branch records,2200,"Village A, Gorakhpur"
-
-31,Backend Dev Intern,CloudSoft,"problem solving,python",Graduate,Urban,IT,Support API development,8000,"Delhi, Bengaluru"
-32,Education Analyst,ThinkEd,"data collection,communication",Graduate,Semi-Urban,Education,Conduct education surveys,7000,"Nagpur, Jaipur"
-33,Finance Tracker Intern,FinServe,"basic it,problem solving",Graduate,Rural,Finance,Support budget tracking,7500,"Patna, Madurai"
-
-34,AI Specialist Intern,DeepTech,"problem solving,data collection",Post-Graduate,Urban,IT,Work on deep learning models,15000,"Hyderabad, Chennai"
-35,EdTech Innovator,NextGenEd,"communication,problem solving",Post-Graduate,Semi-Urban,Education,Contribute to edtech projects,13000,"Lucknow, Indore"
-36,Market Research Intern,FinScope,"data collection,problem solving",Post-Graduate,Rural,Finance,Analyze rural markets,14000,"Gorakhpur, Varanasi"
+1,Software Engineering Intern - STEP Program,Google,"python,java,c++,programming",Bachelor's in Computer Science,Bengaluru,IT,"Google STEP (Student Training in Engineering Program) is a 10-12 week internship for underrepresented students in computer science. Work on real projects with Google engineers.",100000,"Bengaluru, Hyderabad"
+2,Software Developer Intern,Microsoft,"c#,python,javascript,software development",Bachelor's/Master's in Engineering,Hyderabad,IT,"Work on meaningful projects across Microsoft's products including Azure, Office 365, and Windows. 12-week summer internship program with full-time mentorship.",80000,"Hyderabad, Bengaluru"
+3,System Development Engineer Intern,Amazon,"java,python,system design,problem solving",B.Tech/M.Tech in Computer Science,Bengaluru,IT,"Build innovative and mission-critical software applications and tools. Work on live projects under guidance of Amazon engineers on large-scale multi-tiered systems.",75000,"Bengaluru, Hyderabad, Chennai"
+4,Data Analytics Intern,Accenture,"python,sql,data analysis,machine learning",Bachelor's in Engineering/Computer Science,Mumbai,IT,"Work on data analytics projects for Fortune 500 clients. Gain exposure to advanced analytics tools and techniques while working with experienced consultants.",25000,"Mumbai, Pune, Bengaluru"
+5,Cloud Infrastructure Intern,IBM,"cloud computing,aws,azure,devops",B.E/B.Tech in Computer Science,Bengaluru,IT,"Work on IBM Cloud infrastructure projects and gain hands-on experience with enterprise cloud solutions. Contribute to real client implementations.",35000,"Bengaluru, Delhi, Mumbai"
+6,Mobile App Development Intern,Flipkart,"android,ios,flutter,mobile development",B.Tech/B.E in Computer Science,Bengaluru,IT,"Develop features for Flipkart's mobile applications used by millions of customers. Work with product managers and senior developers on user-facing features.",50000,Bengaluru
+7,Financial Technology Intern,Paytm,"java,python,financial systems,api development",Bachelor's in Computer Science/Engineering,Noida,Finance,"Work on payment processing systems and financial technology solutions. Contribute to India's leading digital payment platform serving 350+ million users.",40000,"Noida, Mumbai"
+8,AI/ML Research Intern,Tata Consultancy Services,"machine learning,deep learning,python,tensorflow",M.Tech/MS in Computer Science with AI specialization,Pune,IT,"Work on cutting-edge AI/ML research projects in TCS Innovation Labs. Contribute to research papers and product development in artificial intelligence domain.",30000,"Pune, Chennai, Hyderabad"
+9,Cybersecurity Intern,Wipro,"cybersecurity,network security,ethical hacking,siem",B.E/B.Tech in Computer Science/IT,Bengaluru,IT,"Work with cybersecurity teams on threat detection, incident response, and security assessment projects for enterprise clients.",28000,"Bengaluru, Hyderabad"
+10,Product Management Intern,Zomato,"product management,market research,analytics,communication",MBA/B.Tech with business focus,Gurgaon,IT,"Work with product teams on feature development, user research, and market analysis for Zomato's food delivery and restaurant discovery platform.",45000,"Gurgaon, Mumbai"
+11,Frontend Development Intern,Swiggy,"react,javascript,html,css,frontend development",B.Tech in Computer Science,Bengaluru,IT,"Develop user interfaces for Swiggy's web and mobile applications. Work on customer-facing features used by millions of food delivery customers.",42000,Bengaluru
+12,Data Science Intern,Ola,"python,r,machine learning,statistics,data science",M.Tech/MS in Data Science/Statistics,Bengaluru,IT,"Work on data science projects for ride optimization, pricing algorithms, and customer behavior analysis in India's leading mobility platform.",38000,Bengaluru
+13,Backend Engineering Intern,BYJU'S,"node.js,python,database management,api development",B.Tech in Computer Science/IT,Bengaluru,Education,"Build scalable backend systems for BYJU'S learning platform serving 100+ million students. Work on APIs, databases, and server-side technologies.",32000,Bengaluru
+14,Business Intelligence Intern,Deloitte,"sql,powerbi,tableau,business analytics,excel",MBA/B.Tech with analytics focus,Mumbai,Finance,"Work on business intelligence and analytics projects for Fortune 500 clients. Create dashboards, perform data analysis, and provide strategic insights.",35000,"Mumbai, Delhi, Bengaluru, Hyderabad"
+15,Digital Marketing Intern,HCL Technologies,"digital marketing,seo,sem,social media,content marketing",MBA in Marketing/Mass Communication,Noida,IT,"Work on digital marketing campaigns, SEO optimization, and social media strategies for HCL's technology services and products.",22000,"Noida, Chennai, Pune"
+16,Quality Assurance Intern,Infosys,"software testing,selenium,api testing,quality assurance",B.E/B.Tech in Computer Science,Mysuru,IT,"Work on software testing projects including manual testing, automation testing, and quality assurance for enterprise software applications.",26000,"Mysuru, Pune, Hyderabad"
+17,Game Development Intern,Krafton,"unity,c#,game development,3d graphics",B.Tech in Computer Science with gaming interest,Bengaluru,IT,"Work on mobile game development for PUBG Mobile and other Krafton titles. Contribute to game mechanics, UI/UX, and performance optimization.",55000,Bengaluru
+18,DevOps Engineering Intern,Razorpay,"docker,kubernetes,aws,devops,ci/cd",B.Tech in Computer Science/IT,Bengaluru,Finance,"Work on DevOps practices, infrastructure automation, and deployment pipelines for Razorpay's payment processing platform.",48000,Bengaluru
+19,UX/UI Design Intern,Adobe,"ui/ux design,figma,adobe xd,user research,design thinking",Design/HCI/Computer Science,Bengaluru,IT,"Work on user experience design projects for Adobe's creative software products. Conduct user research, create wireframes, and design interfaces.",60000,"Bengaluru, Noida"
+20,Blockchain Development Intern,Polygon,"blockchain,solidity,web3,smart contracts,ethereum",B.Tech/M.Tech in Computer Science,Remote,IT,"Work on blockchain infrastructure and smart contract development for Polygon's Layer 2 scaling solution for Ethereum.",65000,Remote/Bengaluru
+21,Research & Development Intern,ISRO,"aerospace engineering,python,matlab,research",B.Tech/M.Tech in Aerospace/Mechanical/Electronics,Bengaluru,IT,"Work on space technology research projects including satellite systems, launch vehicle development, and space applications.",12000,"Bengaluru, Thiruvananthapuram"
+22,Artificial Intelligence Intern,Fractal Analytics,"python,machine learning,deep learning,ai,nlp",M.Tech/MS in AI/Computer Science,Mumbai,IT,"Work on AI and machine learning projects for Fortune 500 clients across retail, healthcare, and financial services industries.",40000,"Mumbai, Bengaluru"
+23,Network Engineering Intern,Cisco,"networking,ccna,network security,routing,switching",B.E/B.Tech in Computer Science/Electronics,Bengaluru,IT,"Work on network infrastructure projects, routing and switching technologies, and network security implementations for enterprise clients.",45000,Bengaluru
+24,IoT Development Intern,Bosch,"iot,embedded systems,arduino,raspberry pi,sensors",B.E/B.Tech in Electronics/Computer Science,Bengaluru,IT,"Work on Internet of Things projects for automotive and industrial applications including sensor integration, data collection, and device connectivity.",32000,"Bengaluru, Chennai"
+25,Content Strategy Intern,Netflix,"content strategy,market research,analytics,communication",MBA/Mass Communication/Media Studies,Mumbai,IT,"Work on content acquisition and strategy projects for Netflix India including market research, content performance analysis, and localization strategies.",55000,Mumbai
