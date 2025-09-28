@@ -59,113 +59,201 @@
       transform: translateY(-5px);
     }
 
-    @media (max-width: 640px) {
-      .card {
-        padding: 1rem;
-        font-size: 0.9rem;
-      }
+    /* Floating animation for hero image */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .animate-float { animation: float 5s ease-in-out infinite; }
 
-      footer .container {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-      }
+    /* Hero background gradient animation */
+    .hero-bg {
+      background: linear-gradient(-45deg, #f8fcff, #e2f2ff, #d1e8ff, #f0faff);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Scrolling company logos */
+    .logo-slider {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      background: white;
+      padding: 1rem 0;
+    }
+    .logo-track {
+      display: flex;
+      width: calc(250px * 20); /* 10 logos * 2 for loop */
+      animation: scroll 25s linear infinite;
+    }
+    .logo-slide {
+      height: 80px;
+      width: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 20px;
+      flex-shrink: 0;
+    }
+    .logo-slide img {
+      max-height: 60px;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+    .logo-slide img:hover { transform: scale(1.1); }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Navbar -->
+  <!-- Top Navbar -->
+  <div class="bg-black text-white text-sm">
+    <div class="container mx-auto flex justify-between items-center px-4 py-2">
+      <div class="flex items-center space-x-2">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Flag"
+          class="h-4 w-6 object-cover">
+        <span>भारत सरकार / Government of India</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button id="langBtnTop" class="hover:underline">English</button>
+        <button class="hover:underline">Screen Reader</button>
+        <button class="hover:underline text-lg">A-</button>
+        <button class="hover:underline text-lg">A</button>
+        <button class="hover:underline text-lg">A+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Glass Navbar -->
   <header class="glass-nav py-4 sticky top-0 z-50">
     <div class="flex items-center justify-between px-4 md:px-6">
       <div></div>
       <div class="flex items-center space-x-4">
-        <a href="#login" class="nav-btn">Log in</a>
-        <a href="#register" class="nav-btn primary">Register</a>
+        <a href="#" class="nav-btn">Log in</a>
+        <a href="#" class="nav-btn primary">Register</a>
       </div>
     </div>
   </header>
 
   <!-- Hero -->
-  <main>
-    <section class="py-20 md:py-32 flex flex-col items-center text-center px-6 container mx-auto">
-      <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Make your first move<br> with PM Internpath</h1>
-      <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl">
+  <section class="hero-bg py-20 md:py-32 container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden">
+    <div class="text-center md:text-left flex-1 relative z-10">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight">
+        Make your first move <br> with PM Internpath
+      </h1>
+      <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl">
         Discover the best internships. Your journey to a successful career starts here.
       </p>
-      <div class="mt-8 w-full sm:w-auto">
+      <div class="mt-8">
         <a href="/finder"
-          class="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-lg text-base md:text-lg font-semibold shadow-md
-                  hover:bg-blue-700 block w-full sm:w-auto text-center">
+          class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold shadow-md hover:bg-blue-700 block w-full sm:w-auto text-center">
           Explore Internships
         </a>
       </div>
-    </section>
+    </div>
+    <div class="flex-1 flex justify-center relative z-10">
+      <img src="https://lh5.googleusercontent.com/proxy/-F8dkq3qqreThnlRRiVBUZlcCaryAfwPx_VqgjgLkFEzr-I6I-zp42HeJGjXamHnTPGT7PcLHRH78WTu2mpnKbfBGuU763Tcnv-sB2It8ep65U3e0Dfs3uxJn6DPFrLjwrkoVCgbagY" alt="Hero Illustration"
+        class="w-80 md:w-[400px] animate-float">
+    </div>
+  </section>
 
-    <!-- Categories -->
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by category</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Part-time</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Engineering</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Marketing</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Design</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Data Science</h3></div>
+  <!-- Company Logos Slider -->
+  <section class="logo-slider">
+    <div class="logo-track">
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Meta"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix"></div>
+     
+
+      <!-- Duplicate for infinite loop -->
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Meta"></div>
+      <div class="logo-slide"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix"></div>
+    
+    </div>
+  </section>
+
+  <!-- Eligibility / Benefits Cards -->
+  <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Are you Eligible?</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/age.png" alt="Age" class="mx-auto mb-3">
+        <h3 class="font-bold text-orange-500">Age</h3>
+        <p class="text-sm text-gray-600">21–24 Years</p>
       </div>
-    </section>
-
-    <!-- Locations -->
-    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white bg-opacity-80 rounded-2xl shadow-md">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by location</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Delhi</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Bangalore</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Mumbai</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Hyderabad</h3></div>
-        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Chennai</h3></div>
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/briefcase.png" alt="Job" class="mx-auto mb-3">
+        <h3 class="font-bold text-orange-500">Job Status</h3>
+        <p class="text-sm text-gray-600">Not Employed Full Time</p>
       </div>
-    </section>
-
-    <!-- Login Section -->
-    <section id="login" class="min-h-screen flex items-center justify-center py-16">
-      <div class="flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-5xl">
-
-        <!-- Illustration -->
-        <div class="hidden md:flex md:w-1/2 bg-blue-50 items-center justify-center p-8">
-          <img src="/static/img/internship-illustration.svg" alt="Internship illustration" class="max-w-full h-auto">
-        </div>
-
-        <!-- Login form -->
-        <div class="w-full md:w-1/2 p-8">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Login to InternPath</h2>
-          <form method="POST" action="/login">
-            <div class="mb-4">
-              <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-              <input type="text" name="username" id="username"
-                     class="mt-1 block w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required>
-            </div>
-            <div class="mb-6">
-              <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-              <input type="password" name="password" id="password"
-                     class="mt-1 block w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required>
-            </div>
-            <button type="submit"
-                    class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold">
-              Log in
-            </button>
-          </form>
-        </div>
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/graduation-cap.png" alt="Education" class="mx-auto mb-3">
+        <h3 class="font-bold text-orange-500">Education</h3>
+        <p class="text-sm text-gray-600">Not Enrolled Full Time</p>
       </div>
-    </section>
-  </main>
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/family.png" alt="Family" class="mx-auto mb-3">
+        <h3 class="font-bold text-orange-500">Family</h3>
+        <p class="text-sm text-gray-600">Income ≤ ₹8 Lakhs PA</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white bg-opacity-80 rounded-2xl shadow-md">
+    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">Core Benefits</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/work.png" alt="Experience" class="mx-auto mb-3">
+        <h3 class="font-bold">Real Experience</h3>
+        <p class="text-sm text-gray-600">12 months in top companies</p>
+      </div>
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/wallet.png" alt="Stipend" class="mx-auto mb-3">
+        <h3 class="font-bold">Stipend</h3>
+        <p class="text-sm text-gray-600">₹4500 + ₹500 monthly</p>
+      </div>
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/money-bag.png" alt="Grant" class="mx-auto mb-3">
+        <h3 class="font-bold">Grant</h3>
+        <p class="text-sm text-gray-600">₹6000 one-time</p>
+      </div>
+      <div class="card p-6 text-center">
+        <img src="https://img.icons8.com/color/96/conference.png" alt="Sectors" class="mx-auto mb-3">
+        <h3 class="font-bold">Opportunities</h3>
+        <p class="text-sm text-gray-600">Across multiple sectors</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="bg-gray-800 text-white py-12 mt-16">
     <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-6">
       <div>
         <h4 class="font-bold text-lg mb-4">InternPath</h4>
-        <ul><li class="mb-2"><a href="#">About Us</a></li></ul>
+        <ul>
+          <li class="mb-2"><a href="#">About Us</a></li>
+        </ul>
       </div>
       <div class="mt-8 md:mt-0 text-left md:text-right">
         <h4 class="font-bold text-lg mb-4">Connect With Us</h4>
@@ -179,6 +267,14 @@
       <p class="text-sm">&copy; 2025 Internpath. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- Language Switch JS -->
+  <script>
+    const langBtnTop = document.getElementById('langBtnTop');
+    langBtnTop.addEventListener('click', () => {
+      langBtnTop.textContent = langBtnTop.textContent === 'English' ? 'हिन्दी' : 'English';
+    });
+  </script>
 
 </body>
 </html>
