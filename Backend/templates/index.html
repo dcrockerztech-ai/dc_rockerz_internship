@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PM Internpath Clone</title>
+  <title>PM Internpath</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -64,9 +64,7 @@
         padding: 1rem;
         font-size: 0.9rem;
       }
-    }
 
-    @media (max-width: 640px) {
       footer .container {
         flex-direction: column;
         text-align: center;
@@ -78,16 +76,13 @@
 
 <body>
 
-  <!-- Navbar with glass effect -->
+  <!-- Navbar -->
   <header class="glass-nav py-4 sticky top-0 z-50">
     <div class="flex items-center justify-between px-4 md:px-6">
+      <div></div>
       <div class="flex items-center space-x-4">
-        <img src="{{ url_for('static', filename='MCA.png') }}" alt="MCA" class="h-12 w-auto max-w-full">
-        <img src="{{ url_for('static', filename='pminternpath.png') }}" alt="PM Internpath" class="h-12 w-auto max-w-full">
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="#" class="nav-btn">Log in</a>
-        <a href="#" class="nav-btn primary">Register</a>
+        <a href="#login" class="nav-btn">Log in</a>
+        <a href="#register" class="nav-btn primary">Register</a>
       </div>
     </div>
   </header>
@@ -100,7 +95,8 @@
         Discover the best internships. Your journey to a successful career starts here.
       </p>
       <div class="mt-8 w-full sm:w-auto">
-        <a href="/finder" class="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-lg text-base md:text-lg font-semibold shadow-md
+        <a href="/finder"
+          class="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-lg text-base md:text-lg font-semibold shadow-md
                   hover:bg-blue-700 block w-full sm:w-auto text-center">
           Explore Internships
         </a>
@@ -110,47 +106,55 @@
     <!-- Categories -->
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by category</h2>
-      <div class="flex justify-center">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Part-time</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Engineering</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Marketing</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Design</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Data Science</h3>
-          </div>
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Part-time</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Engineering</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Marketing</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Design</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Data Science</h3></div>
       </div>
     </section>
 
     <!-- Locations -->
     <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-white bg-opacity-80 rounded-2xl shadow-md">
       <h2 class="text-2xl md:text-3xl font-bold mb-8">Internships by location</h2>
-      <div class="flex justify-center">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Delhi</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Bangalore</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Mumbai</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Hyderabad</h3>
-          </div>
-          <div class="card p-6 text-center">
-            <h3 class="text-lg font-bold">Chennai</h3>
-          </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Delhi</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Bangalore</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Mumbai</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Hyderabad</h3></div>
+        <div class="card p-6 text-center"><h3 class="text-lg font-bold">Chennai</h3></div>
+      </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="min-h-screen flex items-center justify-center py-16">
+      <div class="flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-5xl">
+
+        <!-- Illustration -->
+        <div class="hidden md:flex md:w-1/2 bg-blue-50 items-center justify-center p-8">
+          <img src="/static/img/internship-illustration.svg" alt="Internship illustration" class="max-w-full h-auto">
+        </div>
+
+        <!-- Login form -->
+        <div class="w-full md:w-1/2 p-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Login to InternPath</h2>
+          <form method="POST" action="/login">
+            <div class="mb-4">
+              <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+              <input type="text" name="username" id="username"
+                     class="mt-1 block w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div class="mb-6">
+              <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+              <input type="password" name="password" id="password"
+                     class="mt-1 block w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold">
+              Log in
+            </button>
+          </form>
         </div>
       </div>
     </section>
@@ -161,9 +165,7 @@
     <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-6">
       <div>
         <h4 class="font-bold text-lg mb-4">InternPath</h4>
-        <ul>
-          <li class="mb-2"><a href="#">About Us</a></li>
-        </ul>
+        <ul><li class="mb-2"><a href="#">About Us</a></li></ul>
       </div>
       <div class="mt-8 md:mt-0 text-left md:text-right">
         <h4 class="font-bold text-lg mb-4">Connect With Us</h4>
@@ -177,6 +179,6 @@
       <p class="text-sm">&copy; 2025 Internpath. All Rights Reserved.</p>
     </div>
   </footer>
-</body>
 
+</body>
 </html>
