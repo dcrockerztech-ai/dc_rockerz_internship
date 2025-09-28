@@ -60,6 +60,23 @@
     .card:hover {
       transform: translateY(-5px);
     }
+
+    /* ✅ Added for better mobile card scaling */
+    @media (max-width: 640px) {
+      .card {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ✅ Ensure footer stacks neatly on mobile */
+    @media (max-width: 640px) {
+      footer .container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 
